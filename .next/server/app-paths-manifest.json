@@ -1,4 +1,4 @@
 {
-  "/page": "app/page.js",
-  "/api/speechToText/route": "app/api/speechToText/route.js"
+  "/not-found": "app/not-found.js",
+  "/page": "app/page.js"
 }
