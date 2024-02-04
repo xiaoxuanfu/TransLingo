@@ -126,10 +126,14 @@
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 /******/ 		__webpack_require__.h = () => ("1617e61bb9dc4668")
 =======
 /******/ 		__webpack_require__.h = () => ("30678ae45dd8e7df")
 >>>>>>> parent of 5b1dab2 (update2)
+=======
+/******/ 		__webpack_require__.h = () => ("1617e61bb9dc4668")
+>>>>>>> 7f0857e09e7e89ba3c987550f249ea85cd81c32a
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

@@ -193,10 +193,14 @@
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 /******/ 		__webpack_require__.h = function() { return "c9cf8246a9ee0569"; }
 =======
 /******/ 		__webpack_require__.h = function() { return "f3d6e300b21f4923"; }
 >>>>>>> parent of 5b1dab2 (update2)
+=======
+/******/ 		__webpack_require__.h = function() { return "c9cf8246a9ee0569"; }
+>>>>>>> 7f0857e09e7e89ba3c987550f249ea85cd81c32a
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
