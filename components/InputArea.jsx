@@ -1,14 +1,39 @@
 import { useState } from 'react';
-const InputArea = ({ recording, startRecording, stopRecording }) => {
 
+const InputArea = ({ onUserInputSubmit, recording, startRecording, stopRecording }) => {
+  const [userInput, setUserInput] = useState('');
+  const [selectedLanguage, setSelectedLanguage] = useState('english'); // Default language
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Call the parent component function to handle user input
+    onUserInputSubmit(userInput);
+    // Clear the input after submitting
+    //setUserInput('');
+  };
+
+  const handleLanguageChange = (language) => {
+    // Handle language change here
+    setSelectedLanguage(language);
+  };
 
   return (
-    <div className={"bg-white rounded-md shadow-md flex h-3/4 space-x-4 p-8 w-3/4"}>
-    <form className="w-1/2 flex flex-col h-full relative">
+    <form className="w-1/2 flex flex-col h-full relative" onSubmit={handleSubmit}>
+<div className="flex justify-end space-x-4 mb-4">
+        <button size="sm" onClick={() => handleLanguageChange('english')}>English</button>
+        <button size="sm" onClick={() => handleLanguageChange('chinese')}>Chinese</button>
+        <select value={selectedLanguage} onChange={(value) => handleLanguageChange(value)}>
+          <option value="german">German</option>
+          <option value="korean">Korean</option>
+          <option value="french">French</option>
+        </select>
+      </div>
   <textarea
     id="chat"
     rows="4"
-    className="flex-grow pl-4 border text-m text-gray-900 bg-white rounded-lg focus:ring-blue-500 focus:border-blue-500 resize-none mb-4 py-2" // Added padding to the textarea
+    value={userInput}
+    onChange={(e) => setUserInput(e.target.value)}
+    className="flex-grow pl-4 border text-m text-gray-900 bg-white rounded-lg focus:ring-blue-500 focus:border-blue-500 resize-none mb-4 py-2" 
     placeholder="Type here..."
   ></textarea>
 
@@ -28,30 +53,10 @@ const InputArea = ({ recording, startRecording, stopRecording }) => {
   </button>
 </form>
   
-    <button
-      type="microphone"
-      className="absolute bottom-20 p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600"
-      onClick={recording ? stopRecording : startRecording}
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="19"
-        height="19"
-        fill="currentColor"
-        className="bi bi-mic-fill justify-center"
-        viewBox="0 0 16 16"
-      >
-        <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0z" />
-        <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5" />
-      </svg>
-
-    </button>
 
 
-<div className="w-1/2 pl-4 h-full bg-white border rounded-lg flex items-center">
-    <h2 className="text-lg">Second BOX</h2>
-  </div>
-</div>
+
+
     
   )
 }
