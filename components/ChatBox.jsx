@@ -6,14 +6,14 @@ const Chatbox = () => {
 
   const handleSubmit = async () => {
     try {
-      // Update #1: Clear the textarea
+      // Clear the textarea
       setUserInput('');
 
-      // Update #2: Show user input in the chatbox
+      // Show user input in the chatbox
       const newConversation = [...conversation, { role: 'user', content: userInput }];
       setConversation(newConversation);
 
-      // Update #3: Call OpenAI API to generate response
+      // Call OpenAI API to generate response
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
@@ -30,7 +30,7 @@ const Chatbox = () => {
 
       const assistantReply = content;
 
-      // Update #4: Show OpenAI response in the chatbox
+      // Show OpenAI response in the chatbox
       const updatedConversation = [...newConversation, { role: 'assistant', content: assistantReply }];
       setConversation(updatedConversation);
     } catch (error) {
