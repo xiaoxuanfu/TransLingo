@@ -1,4 +1,7 @@
 {
+<<<<<<< HEAD
   "/not-found": "app/not-found.js",
+=======
+>>>>>>> parent of 5b1dab2 (update2)
   "/page": "app/page.js"
 }
