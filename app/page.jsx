@@ -24,7 +24,9 @@ export default function Home() {
             chunks.push(e.data);
           };
           newMediaRecorder.onstop = async () => {
-            const audioBlob = new Blob(chunks, { type: 'audio/webm' });
+            const audioBlob = new Blob(chunks, { 
+              type: 'audio/mpeg' 
+            });
             const audioUrl = URL.createObjectURL(audioBlob);
             const audio = new Audio(audioUrl);
             audio.onerror = function (err) {
@@ -36,12 +38,22 @@ export default function Home() {
               reader.readAsDataURL(audioBlob);
               reader.onloadend = async function () {
                 const base64Audio = reader.result.split(',')[1]; // Remove the data URL prefix
+                console.log(audioBlob)
+
+                const audiofile = new File([audioBlob], "/tmp/output.mp3", {
+                  type: "audio/mp3",
+                });
+                const formData = new FormData();
+
+                // Append the recording to the FormData
+                formData.append('audio', audioBlob);
+                
                 const response = await fetch("/api/speechToText", {
                   method: "POST",
                   headers: {
                     'Content-Type': 'application/json'
                   },
-                  body: JSON.stringify({ audio: base64Audio }),
+                  body: formData,
                 });
                 const data = await response.json();
                 if (response.status !== 200) {
