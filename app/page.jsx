@@ -93,16 +93,16 @@ const stopRecording = () => {
 
   // Render the components
   return (  
-    <main className={"bg-white flex flex-col items-center justify-center h-screen"}>
+    <main className="bg-white flex flex-col items-center justify-center h-screen">
   <div className="mt-16 flex justify-between mb-4">
-    <button className="p-15 text-blue-500 font-bold border border-blue-500 px-4 py-21 rounded-md mr-4" onClick={handleTranslate}>
+    <button className="p-15 text-blue-500 font-bold border border-blue-500 px-4 py-2 rounded-md mr-4" onClick={handleTranslate}>
       Translate
     </button>
     <button className="p-15 text-blue-500 font-bold border border-blue-500 px-4 py-2 rounded-md" onClick={handleAssistant}>
       Assistant
     </button>            
   </div>
-  <div className="space-x-4 flex justify-end">
+  <div className="space-x-4 flex">
           <button className=" text-sm" onClick={() => handleLanguageChange('english')}>English</button>
           <button className=" text-sm" onClick={() => handleLanguageChange('chinese')}>Chinese</button>
           <select className="select text-sm">
@@ -132,6 +132,7 @@ const stopRecording = () => {
     </button>
     
   <TranslationBox userInput={userInputs}/>
+
   </div>
 </main>
   )

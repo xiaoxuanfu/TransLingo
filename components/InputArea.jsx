@@ -27,21 +27,12 @@ const InputArea = ({ onUserInputSubmit, recording, startRecording, stopRecording
 
   return (
     <form className="w-1/2 flex flex-col h-full relative" onSubmit={handleSubmit}>
-<div className="flex justify-end space-x-4 mb-4">
-        <button size="sm" onClick={() => handleLanguageChange('english')}>English</button>
-        <button size="sm" onClick={() => handleLanguageChange('chinese')}>Chinese</button>
-        <select value={selectedLanguage} onChange={(value) => handleLanguageChange(value)}>
-          <option value="german">German</option>
-          <option value="korean">Korean</option>
-          <option value="french">French</option>
-        </select>
-      </div>
   <textarea
     id="chat"
     rows="4"
     value={output}
     onChange={(e) => setUserInput(e.target.value)}
-    className="flex-grow pl-4 border text-m text-gray-900 bg-white rounded-lg focus:ring-blue-500 focus:border-blue-500 resize-none mb-4 py-2" 
+    className="flex-grow pl-4 border text-m text-gray-900 bg-white rounded-lg focus:ring-blue-500 focus:border-blue-500 resize-none py-2" 
     placeholder="Type here..."
   ></textarea>
 
