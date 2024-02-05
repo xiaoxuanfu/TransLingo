@@ -102,7 +102,15 @@ const stopRecording = () => {
       Assistant
     </button>            
   </div>
-
+  <div className="space-x-4 flex justify-end">
+          <button className=" text-sm" onClick={() => handleLanguageChange('english')}>English</button>
+          <button className=" text-sm" onClick={() => handleLanguageChange('chinese')}>Chinese</button>
+          <select className="select text-sm">
+            <option>German</option>
+            <option>Korean</option>
+            <option>French</option>
+          </select>
+    </div>
   <div className={"bg-white rounded-md shadow-md flex h-3/4 space-x-4 p-8 w-3/4"}>
   <InputArea onUserInputSubmit={handleUserInputSubmit} recording={recording} startRecording={startRecording} stopRecording={stopRecording} output = {result} />
   <button
