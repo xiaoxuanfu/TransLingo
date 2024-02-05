@@ -72,11 +72,11 @@ const Chatbox = () => {
       <div className="rounded-md overflow-y-auto mb-4 max-h-screen min-w-36" style={{ flex: 1, border: '1px solid #ccc', padding: '10px' }}>
         {conversation.map((message, index) => (
           <div key={index} className={message.role === "user" ? "text-right" : "text-left"} style={{ marginBottom: '10px', color: message.role === 'user' ? 'blue' : 'green' }}>
-            <div className="flex items-center">
+            <div className="flex items-right justify-end">
             {message.role === 'user' ? (
-              <div className="flex items-center justify-end">
+              <div className="flex items-right justify-end">
                 <p className="text-right mr-2 float-right items-end">{message.content}</p>
-                <div className="mr-2 inline-flex items-center items-end">
+                <div className="mr-2 inline-flex items-end">
                   <Image
                     src="/tour-guide-icon.png"
                     alt="User Icon"
@@ -108,7 +108,7 @@ const Chatbox = () => {
         <textarea
           rows="2"
           className='rounded-md'
-          style={{ flex: '1', marginRight: '10px', resize: 'none', padding: '10px' }}
+          style={{ flex: '1', marginRight: '10px', resize: 'none', padding: '10px'}}
           placeholder="Type here..."
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}

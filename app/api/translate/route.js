@@ -9,7 +9,6 @@ const openai = new OpenAI({
 
 export async function POST(req) {
     const { message, language } = await req.json();
-    console.log('msg in POST ',message);
     if (message===''){
         return NextResponse.json({
             content: '',
@@ -17,8 +16,6 @@ export async function POST(req) {
     }
     console.log(language);
     const systemPrompt = `translate the following text into ${language}.`;
-
-    console.log('within the ai, ', systemPrompt);
 
     const completion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
