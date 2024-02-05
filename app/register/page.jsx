@@ -99,9 +99,10 @@ export default function RegistrationPage() {
             />
           </div>
           <div className='text-xl text-center justify-around py-4'>
-            Record the text to make our model adopt your voice!
+            Record the text below to make our model<br/>adopt your voice!
+            Do it until your recording is clear! 
           </div>
-          <div className='text-center text-xl m-6 underline underline-offset-2'>
+          <div className='text-center text-3xl text-zinc-600 font-semibold m-2 underline underline-offset-2'>
             The quick brown fox jumps over the lazy dog.
 
           </div>
