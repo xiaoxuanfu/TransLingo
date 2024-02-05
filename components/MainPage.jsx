@@ -14,6 +14,22 @@ export default function Home() {
   const [userInputs, setUserInputs] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState('english'); // Default language
 
+  // Function to start recording
+  const startRecording = () => {
+    if (mediaRecorder) {
+      mediaRecorder.start();
+      setRecording(true);
+    }
+  };
+
+  // Function to stop recording
+  const stopRecording = () => {
+    if (mediaRecorder) {
+      mediaRecorder.stop();
+      setRecording(false);
+    }
+  };
+
   // this array holds audio data
   let chunks = [];
   // This useEffect hook sets up the media recorder when the component mounts
@@ -67,21 +83,6 @@ export default function Home() {
       }
   }, []);
 
-// Function to start recording
-  const startRecording = () => {
-    if (mediaRecorder) {
-      mediaRecorder.start();
-      setRecording(true);
-    }
-  };
-
-  // Function to stop recording
-  const stopRecording = () => {
-    if (mediaRecorder) {
-      mediaRecorder.stop();
-      setRecording(false);
-    }
-  };
 
   // routing for changing pages
   const router = useRouter();
