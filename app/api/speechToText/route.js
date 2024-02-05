@@ -24,6 +24,7 @@ export async function POST(request) {
   try {
     // Convert the audio data to text
     const text = await convertAudioToText(audio);
+    console.log(text);
     // Return the transcribed text in the response
     return NextResponse.json({result: text}, {status:200});
   } catch(error) {
@@ -42,26 +43,27 @@ async function convertAudioToText(audioData) {
   // Convert the audio data to MP3 format
   const mp3AudioData = await convertAudioToMp3(audioData);
   // Write the MP3 audio data to a file
-  const outputPath = '/tmp/output.mp3';
+  const outputPath = './output.mp3';
   fs.writeFileSync(outputPath, mp3AudioData);
   // Transcribe the audio
-  const response = await openai.createTranscription(
-      fs.createReadStream(outputPath),
-      'whisper-1'
+  const response = await openai.audio.transcriptions.create(
+      {file: fs.createReadStream(outputPath),
+      model: 'whisper-1'}
   );
+  console.log(response.text);
   // Delete the temporary file
   fs.unlinkSync(outputPath);
   // The API response contains the transcribed text
-  const transcribedText = response.data.text;
-  return transcribedText;
+  //const transcribedText = response.data.text;
+  return response.text;
 }
 // This function converts audio data to MP3 format using ffmpeg
 async function convertAudioToMp3(audioData) {
   // Write the audio data to a file
-  const inputPath = '/tmp/input.webm';
+  const inputPath = './input.webm';
   fs.writeFileSync(inputPath, audioData);
   // Convert the audio to MP3 using ffmpeg
-  const outputPath = '/tmp/output.mp3';
+  const outputPath = './output.mp3';
   await execAsync(`ffmpeg -i ${inputPath} ${outputPath}`);
   // Read the converted audio data
   const mp3AudioData = fs.readFileSync(outputPath);
