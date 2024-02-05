@@ -41,9 +41,9 @@ export default function RegistrationPage() {
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
       }
-      console.log(response)
+      // console.log(response)
       const data = await response.body;
-      console.log(data); // Handle the response from the server as needed
+      // console.log(data); // Handle the response from the server as needed
       setError(null); // Clear the error message
       router.push('/login');
     } catch (error) {

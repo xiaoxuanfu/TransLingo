@@ -123,6 +123,7 @@ app.post('/login', upload.any(), async (req, res) => {
         } else {
             audioData = data.Body.toString("base64"); // Convert audio data to base64
             console.log("Here inside")
+            // res.send(audioData)
             res.send({
                 message: 'Login successful.',
                 audioData: audioData

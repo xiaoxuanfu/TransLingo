@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 const RecordingButton = ({onStateChange}) => {
-    const [childInternalValue, setChildInternalValue] = useState('');
-
     const [isClicked, setIsClicked] = useState(false);
     const [result, setResult] = useState();
     const [recording, setRecording] = useState(false);
@@ -53,7 +51,7 @@ const RecordingButton = ({onStateChange}) => {
                     console.error('Error playing audio:', err);
                 };
                 audio.play();
-                console.log("Playing audio")
+                // console.log("Playing audio")
                 try {
                     // setResult(audioBlob);
                     handleInputChange(audioBlob);
@@ -85,7 +83,7 @@ const RecordingButton = ({onStateChange}) => {
                 borderRadius: '50%',
                 border: '2px solid black',
                 boxSizing: 'border-box',
-                backgroundColor: isClicked ? 'red' : 'transparent',
+                backgroundColor: recording ? 'red' : 'transparent',
                 cursor: 'pointer',
             }}
             onClick={recording ? stopRecording : startRecording}

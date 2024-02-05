@@ -23,18 +23,22 @@ export default function LoginPage() {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
-    //     // "Access-Control-Allow-Origin": "*",
-    //     // "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+    // //     // "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
      },
       body: JSON.stringify({ email, password }),
     })
  
 
-    console.log(response)
     if (response.ok) {
-      console.log(response)
-      console.log(response.message)
-      console.log(response.audioData)
+      const textData = JSON.parse(await response.text())
+      let audioData = textData.audioData
+      // console.log(textData)
+      // console.log(textData.message)
+      // console.log(textData.audioData)
+      
+      // To feed audioData into TTS
+
       router.push('/')
     } else {
       // Handle errors
