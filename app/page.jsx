@@ -2,23 +2,37 @@
 
 // Import necessary libraries
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import InputArea from "../components/InputArea";
+import TranslationBox from "@/components/TranslationBox";
 
-// This is the main component of our application
 export default function Home() {
   // Define state variables for the result, recording status, and media recorder
   const [result, setResult] = useState();
   const [recording, setRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState(null);
-  // This array will hold the audio data
+  const [userInputs, setUserInputs] = useState('');
+
+  // this array holds audio data
   let chunks = [];
-  // This useEffect hook sets up the media recorder when the component mounts
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      navigator.mediaDevices.getUserMedia({ audio: true })
-        .then(stream => {
-          const newMediaRecorder = new MediaRecorder(stream);
-          newMediaRecorder.onstart = () => {
-            chunks = [];
+// This useEffect hook sets up the media recorder when the component mounts
+useEffect(() => {
+  if (typeof window !== 'undefined') {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(stream => {
+        const newMediaRecorder = new MediaRecorder(stream);
+        newMediaRecorder.onstart = () => {
+          chunks = [];
+        };
+        newMediaRecorder.ondataavailable = e => {
+          chunks.push(e.data);
+        };
+        newMediaRecorder.onstop = async () => {
+          const audioBlob = new Blob(chunks, { type: 'audio/webm' });
+          const audioUrl = URL.createObjectURL(audioBlob);
+          const audio = new Audio(audioUrl);
+          audio.onerror = function (err) {
+            console.error('Error playing audio:', err);
           };
           newMediaRecorder.ondataavailable = e => {
             chunks.push(e.data);
@@ -61,42 +75,80 @@ export default function Home() {
                 }
                 setResult(data.result);
               }
-            } catch (error) {
-              console.error(error);
-              alert(error.message);
+              setResult(data.result);
             }
-          };
-          setMediaRecorder(newMediaRecorder);
-        })
-        .catch(err => console.error('Error accessing microphone:', err));
-    }
-  }, []);
-  // Function to start recording
-  const startRecording = () => {
-    if (mediaRecorder) {
-      mediaRecorder.start();
-      setRecording(true);
-    }
+          } catch (error) {
+            console.error(error);
+            alert(error.message);
+          }
+        };
+        setMediaRecorder(newMediaRecorder);
+      })
+      .catch(err => console.error('Error accessing microphone:', err));
+  }
+}, []);
+// Function to start recording
+const startRecording = () => {
+  if (mediaRecorder) {
+    mediaRecorder.start();
+    setRecording(true);
+  }
+};
+
+// Function to stop recording
+const stopRecording = () => {
+  if (mediaRecorder) {
+    mediaRecorder.stop();
+    setRecording(false);
+  }
+};
+  const router = useRouter();
+  const handleTranslate = () => {
+    router.push('./');
   };
-  // Function to stop recording
-  const stopRecording = () => {
-    if (mediaRecorder) {
-      mediaRecorder.stop();
-      setRecording(false);
-    }
+  const handleAssistant = () => {
+    router.push('/assistant');
   };
-  // Render the componentz
+  const handleUserInputSubmit = (userInput) => {
+    setUserInputs(userInput); // Set the user input to the state
+    // Call the OpenAI API or perform any other actions here
+  };
+
+
+  // Render the components
   return (
-    <main className={"bg-slate-50 flex flex-col items-center justify-center h-screen"}>
-      <div className={"bg-slate-50 p-8 rounded-md shadow-md w-1/2"}>
-        <h2>
-          Convert audio to text <span>-&gt;</span>
-        </h2>
-        <button className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4" onClick={recording ? stopRecording : startRecording} >
-          {recording ? 'Stop Recording' : 'Start Recording'}
-        </button>
-        <p className="text-lg">{result}</p>
-      </div>
-    </main>
+    <main className={"bg-white flex flex-col items-center justify-center h-screen"}>
+  <div className="mt-16 flex justify-between mb-4">
+    <button className="p-15 text-blue-500 font-bold border border-blue-500 px-4 py-21 rounded-md mr-4" onClick={handleTranslate}>
+      Translate
+    </button>
+    <button className="p-15 text-blue-500 font-bold border border-blue-500 px-4 py-2 rounded-md" onClick={handleAssistant}>
+      Assistant
+    </button>            
+  </div>
+
+  <div className={"bg-white rounded-md shadow-md flex h-3/4 space-x-4 p-8 w-3/4"}>
+  <InputArea onUserInputSubmit={handleUserInputSubmit} recording={recording} startRecording={startRecording} stopRecording={stopRecording} />
+  <button
+      type="microphone"
+      className="absolute bottom-20 p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600"
+      onClick={recording ? stopRecording : startRecording}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="19"
+        height="19"
+        fill="currentColor"
+        className="bi bi-mic-fill justify-center"
+        viewBox="0 0 16 16"
+      >
+        <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0z" />
+        <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5" />
+      </svg>
+    </button>
+    
+  <TranslationBox userInput={userInputs}/>
+  </div>
+</main>
   )
 }
