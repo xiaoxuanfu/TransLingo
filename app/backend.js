@@ -115,7 +115,6 @@ app.post('/login', upload.any(), async (req, res) => {
         };
         // const audioFileStream = s3.getObject(params).createReadStream();
         let audioData;
-        const chunks = [];
         s3.getObject(params, (err, data) => {
           if (err) {
             console.error("Error retrieving object from S3:", err);

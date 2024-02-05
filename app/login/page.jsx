@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
+
  
 export default function LoginPage() {
   const router = useRouter()
@@ -38,6 +39,11 @@ export default function LoginPage() {
       // console.log(textData.audioData)
       
       // To feed audioData into TTS
+      const audio = Buffer.from(audioData, 'base64');
+      // Write the MP3 audio data to output file ./output.mp3
+      const mp3AudioData = await convertAudioToMp3(audio);
+      
+
 
       router.push('/')
     } else {
@@ -49,7 +55,7 @@ export default function LoginPage() {
   return (
   <div className="relative flex flex-col justify-center h-screen overflow-hidden">
       <div className="w-full p-6 m-auto bg-white rounded-md shadow-md ring-2 ring-gray-800/50 lg:max-w-lg">
-        <h1 className="text-3xl font-semibold text-center text-blue-500">Translate App</h1>
+        <h1 className="text-3xl font-semibold text-center text-blue-500">Translingo</h1>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label className="label">

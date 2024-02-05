@@ -56,7 +56,7 @@ export default function RegistrationPage() {
   return (
     <div className="relative flex flex-col justify-center h-screen overflow-hidden">
       <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
-        <h1 className="text-3xl font-semibold text-center text-blue-500">Register</h1>
+        <h1 className="text-3xl font-semibold text-center text-blue-500">Translingo</h1>
         {error && (
           <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mt-4" role="alert">
             <p className="font-bold">Error:</p>
