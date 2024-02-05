@@ -1,12 +1,36 @@
 import React, { useState, useEffect } from 'react';
 
-const RecordingButton = ({onClick}) => {
+const RecordingButton = ({onStateChange}) => {
+    const [childInternalValue, setChildInternalValue] = useState('');
+
     const [isClicked, setIsClicked] = useState(false);
     const [result, setResult] = useState();
     const [recording, setRecording] = useState(false);
     const [mediaRecorder, setMediaRecorder] = useState(null);
     const [userInputs, setUserInputs] = useState('');
+    
+    const handleInputChange = (e) => {
+        // const newValue = e.target.value;
+        setResult(e);
 
+        // Pass the new value to the parent component
+        onStateChange(e);
+    };
+    // Function to start recording
+    const startRecording = () => {
+        if (mediaRecorder) {
+        mediaRecorder.start();
+        setRecording(true);
+        }
+    };
+
+    // Function to stop recording
+    const stopRecording = () => {
+        if (mediaRecorder) {
+        mediaRecorder.stop();
+        setRecording(false);
+        }
+    };
     
     // this array holds audio data
     let chunks = [];
@@ -22,7 +46,7 @@ const RecordingButton = ({onClick}) => {
                 chunks.push(e.data);
             };
             newMediaRecorder.onstop = async () => {
-                const audioBlob = new Blob(chunks, { type: 'audio/webm' });
+                const audioBlob = new Blob(chunks, { type: 'audio/mp3' });
                 const audioUrl = URL.createObjectURL(audioBlob);
                 const audio = new Audio(audioUrl);
                 audio.onerror = function (err) {
@@ -31,7 +55,8 @@ const RecordingButton = ({onClick}) => {
                 audio.play();
                 console.log("Playing audio")
                 try {
-                    setResult(audioBlob);
+                    // setResult(audioBlob);
+                    handleInputChange(audioBlob);
                 }
                 catch (error) {
                 console.error(error);

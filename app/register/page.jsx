@@ -6,41 +6,32 @@ import RecordingButton from '../../components/RecordingButton';
 
 
 export default function RegistrationPage() {
+    const [audioState, setAudioState] = useState('');
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [recording, setRecording] = useState(false);
-
+    
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState(null);
     const router = useRouter();
-
-
-  const handleRegister = async () => {
-    // Function to start recording
-    const startRecording = () => {
-        if (mediaRecorder) {
-        mediaRecorder.start();
-        setRecording(true);
-        }
+    
+    
+    const handleAudioStateChange = (newValue) => {
+      setAudioState(newValue);
     };
-
-    // Function to stop recording
-    const stopRecording = () => {
-        if (mediaRecorder) {
-        mediaRecorder.stop();
-        setRecording(false);
-        }
-    };
+    const handleRegister = async () => {
+    
 
     try {
       const formData = new FormData();
-      formData.append('name', name);
       formData.append('email', email);
       formData.append('password', password);
-      console.log("HandleRegister: ", RecordingButton.result)
-      formData.append('file', RecordingButton.result);
+      console.log("HandleRegister: ", audioState);
 
+      formData.append('audiofile', audioState, "audiofile");
+        
 
       const response = await fetch('http://localhost:8000/register', {
         method: 'POST',
@@ -50,11 +41,11 @@ export default function RegistrationPage() {
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
       }
-
-      const data = await response.json();
+      console.log(response)
+      const data = await response.body;
       console.log(data); // Handle the response from the server as needed
       setError(null); // Clear the error message
-      router.push('/registration_2')
+      router.push('/login');
     } catch (error) {
       console.error('Error during registration:', error.message);
       // Handle the error, e.g., show an error message to the user
@@ -117,7 +108,7 @@ export default function RegistrationPage() {
           <div className='items-center justify-center text-center'>
             <RecordingButton 
             className="items-center justify-center text-center"
-            onClick={recording ? stopRecording : startRecording} />
+            onStateChange={handleAudioStateChange} />
           </div>
           <div>
             <button

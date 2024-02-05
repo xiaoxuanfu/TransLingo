@@ -1,31 +1,40 @@
 'use client'
 
-import { FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
  
 export default function LoginPage() {
   const router = useRouter()
- 
+  // Initialize state variables for email and password
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // Update state variables when input values change
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
+
   async function handleSubmit(event) {
     event.preventDefault()
- 
-    const formData = new FormData(event.currentTarget)
-    const email = formData.get('email')
-    const password = formData.get('password')
-
+    console.log("Email: ",email)
+    console.log("Password: ", password)
  
     // const response = await fetch('https://techfest-audio.s3.ap-southeast-1.amazonaws.com', {
     const response = await fetch('http://localhost:8000/login', {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
-        // "Access-Control-Allow-Origin": "*",
-        // "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+    //     // "Access-Control-Allow-Origin": "*",
+    //     // "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
      },
       body: JSON.stringify({ email, password }),
     })
  
+
+    console.log(response)
     if (response.ok) {
+      console.log(response)
+      console.log(response.message)
+      console.log(response.audioData)
       router.push('/')
     } else {
       // Handle errors
@@ -42,14 +51,19 @@ export default function LoginPage() {
             <label className="label">
               <span className="text-base label-text text-zinc-700">Email</span>
             </label>
-            <input type="text" className="w-full input input-bordered bg-white rounded-md border-blue-500 focus:border-blue-800" />
+            <input 
+            type="text" 
+            className="w-full input input-bordered bg-white rounded-md border-blue-500 focus:border-blue-800" 
+            onChange={handleEmailChange}
+            />
           </div>
           <div>
             <label className="label">
               <span className="text-base label-text text-zinc-700">Password</span>
             </label>
             <input type="password"
-              className="w-full input input-bordered bg-white rounded-md border-blue-500 focus:border-blue-800" />
+              className="w-full input input-bordered bg-white rounded-md border-blue-500 focus:border-blue-800" 
+              onChange={handlePasswordChange}/>
           </div>
           {/* <a href="#" className="text-xs text-gray-600 hover:underline hover:text-blue-600">Forget Password?</a> */}
           <div>
@@ -57,7 +71,7 @@ export default function LoginPage() {
             <p className="mb-0 mt-2 pt-1 font-normal">
               Don't have an account?&nbsp;
               <a
-              href="registration"
+              href="register"
               className="transition duration-150 ease-in-out text-blue-500 hover:text-blue-800 hover:underline"
               >Register</a
               >

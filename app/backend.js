@@ -15,8 +15,8 @@ app.use(express.urlencoded({ extended: false }));
 
 
 const s3 = new S3({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  accessKeyId: "AKIAXEM77KUGHVOW7UHS",
+  secretAccessKey: "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",
 });
 
 
@@ -65,7 +65,6 @@ app.post('/register', upload.single('audiofile'), (req, res) => {
     // Generate the filename based on the user's email
     registeredFilename = generateFilename(email);
 
-    console.log(req.file)
     const bucketname = 'techfest-audio';
     const file = req.file.buffer;
 
@@ -89,12 +88,11 @@ app.post('/login', upload.any(), async (req, res) => {
             console.log('Email or password missing');
             return res.status(400).send('Email or password missing.');
         }
-
         console.log(`Login attempt for email: ${email}`);
 
         const storedUser = users[email];
 
-        console.log('Stored User:', storedUser);
+        console.log('Stored User: ', storedUser);
 
         if (!storedUser) {
             console.log('User not found');
@@ -111,29 +109,43 @@ app.post('/login', upload.any(), async (req, res) => {
         // Use the filename generated during registration for S3 retrieval
         const bucketname = 'techfest-audio';
 
-        const params = { Key: registeredFilename, Bucket: bucketname };
-        const audioFileStream = s3.getObject(params).createReadStream();
-
-        // Instead of console logging, send the audio data in the response
+        const params = { 
+            Key: registeredFilename, 
+            Bucket: bucketname 
+        };
+        // const audioFileStream = s3.getObject(params).createReadStream();
+        let audioData;
         const chunks = [];
-        audioFileStream.on('data', (chunk) => {
-            chunks.push(chunk);
-        });
-
-        audioFileStream.on('end', () => {
-            const audioData = Buffer.concat(chunks);
+        s3.getObject(params, (err, data) => {
+          if (err) {
+            console.error("Error retrieving object from S3:", err);
+            res.status(500).send('Error retrieving audio file.');
+        } else {
+            audioData = data.Body.toString("base64"); // Convert audio data to base64
+            console.log("Here inside")
             res.send({
                 message: 'Login successful.',
-                audioData: audioData.toString('base64'), // Convert audio data to base64
+                audioData: audioData
             });
-        });
-
-        audioFileStream.on('error', (err) => {
-            console.error('Error retrieving audio file:', err);
-            res.status(500).send('Error retrieving audio file.');
-        });
-
-} catch (err) {
+            
+        }
+    });
+    
+    // // Instead of console logging, send the audio data in the response
+    // audioFileStream.on('data', (chunk) => {
+        // });
+        // console.log(chunks)
+        // console.log("Here outside")
+        // audioFileStream.on('end', () => {
+            //     // const audioData = Buffer.concat(chunks);
+            // });
+            
+            // audioFileStream.on('error', (err) => {
+            //     console.error('Error retrieving audio file:', err);
+            //     res.status(500).send('Error retrieving audio file.');
+            // });
+            
+        } catch (err) {
         console.error('Error during login:', err);
         res.status(500).send('Error during login.');
     }
