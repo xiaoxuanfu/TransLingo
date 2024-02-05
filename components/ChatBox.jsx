@@ -74,8 +74,8 @@ const Chatbox = () => {
           <div key={index} className={message.role === "user" ? "text-right" : "text-left"} style={{ marginBottom: '10px', color: message.role === 'user' ? 'blue' : 'green' }}>
             <div className="flex items-right justify-end">
             {message.role === 'user' ? (
-              <div className="flex items-right justify-end">
-                <p className="text-right mr-2 float-right items-end">{message.content}</p>
+              <div className="flex items-center justify-end">
+                <p className="text-right mr-2 float-right flex items-centre">{message.content}</p>
                 <div className="mr-2 inline-flex items-end">
                   <Image
                     src="/tour-guide-icon.png"
