@@ -61,7 +61,7 @@ useEffect(() => {
         setMediaRecorder(newMediaRecorder);
       })
       .catch(err => console.error('Error accessing microphone:', err));
-  }
+    }
 }, []);
 // Function to start recording
 const startRecording = () => {
@@ -85,14 +85,14 @@ const stopRecording = () => {
   const handleAssistant = () => {
     router.push('/assistant');
   };
-  const handleUserInputSubmit = (userInput) => {
-    setUserInputs(userInput); // Set the user input to the state
+  const handleUserInputSubmit = (result) => {
+    setUserInputs(result); // Set the user input to the state
     // Call the OpenAI API or perform any other actions here
   };
 
 
   // Render the components
-  return (
+  return (  
     <main className={"bg-white flex flex-col items-center justify-center h-screen"}>
   <div className="mt-16 flex justify-between mb-4">
     <button className="p-15 text-blue-500 font-bold border border-blue-500 px-4 py-21 rounded-md mr-4" onClick={handleTranslate}>
@@ -104,7 +104,7 @@ const stopRecording = () => {
   </div>
 
   <div className={"bg-white rounded-md shadow-md flex h-3/4 space-x-4 p-8 w-3/4"}>
-  <InputArea onUserInputSubmit={handleUserInputSubmit} recording={recording} startRecording={startRecording} stopRecording={stopRecording} />
+  <InputArea onUserInputSubmit={handleUserInputSubmit} recording={recording} startRecording={startRecording} stopRecording={stopRecording} output = {result} />
   <button
       type="microphone"
       className="absolute bottom-20 p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600"

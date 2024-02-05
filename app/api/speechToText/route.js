@@ -24,7 +24,7 @@ export async function POST(request) {
   try {
     // Convert the audio data to text
     const text = await convertAudioToText(audio);
-    console.log(text);
+    // console.log(text);
     // Return the transcribed text in the response
     return NextResponse.json({result: text}, {status:200});
   } catch(error) {

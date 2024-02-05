@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const InputArea = ({ onUserInputSubmit, recording, startRecording, stopRecording }) => {
+const InputArea = ({ onUserInputSubmit, recording, startRecording, stopRecording, output}) => {
   const [userInput, setUserInput] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState('english'); // Default language
 
@@ -11,6 +11,14 @@ const InputArea = ({ onUserInputSubmit, recording, startRecording, stopRecording
     // Clear the input after submitting
     //setUserInput('');
   };
+
+  // const handleRecording = (e) => {
+  //   e.preventDefault();
+  //   // Call the parent component function to handle user input
+  //   setUserInput(output);
+  //   // Clear the input after submitting
+  //   //setUserInput('');
+  // };
 
   const handleLanguageChange = (language) => {
     // Handle language change here
@@ -31,7 +39,7 @@ const InputArea = ({ onUserInputSubmit, recording, startRecording, stopRecording
   <textarea
     id="chat"
     rows="4"
-    value={userInput}
+    value={output}
     onChange={(e) => setUserInput(e.target.value)}
     className="flex-grow pl-4 border text-m text-gray-900 bg-white rounded-lg focus:ring-blue-500 focus:border-blue-500 resize-none mb-4 py-2" 
     placeholder="Type here..."
