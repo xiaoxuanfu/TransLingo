@@ -10,13 +10,12 @@ export default function LoginPage() {
     event.preventDefault()
  
     const formData = new FormData(event.currentTarget)
-    // const email = formData.get('email')
-    // const password = formData.get('password')
+    const email = formData.get('email')
+    const password = formData.get('password')
 
-    const email = "ahchew@gmail.com"
-    const password = "password123"
  
-    const response = await fetch('https://techfest-audio.s3.ap-southeast-1.amazonaws.com', {
+    // const response = await fetch('https://techfest-audio.s3.ap-southeast-1.amazonaws.com', {
+    const response = await fetch('http://localhost:8000/login', {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
@@ -35,29 +34,37 @@ export default function LoginPage() {
   }
  
   return (
-    <div className="relative flex flex-col justify-center h-screen overflow-hidden">
-    <div className="w-full p-6 m-auto bg-white rounded-md shadow-md ring-2 ring-gray-800/50 lg:max-w-lg">
-        <h1 className="text-3xl font-semibold text-center text-gray-700">DaisyUI</h1>
+  <div className="relative flex flex-col justify-center h-screen overflow-hidden">
+      <div className="w-full p-6 m-auto bg-white rounded-md shadow-md ring-2 ring-gray-800/50 lg:max-w-lg">
+        <h1 className="text-3xl font-semibold text-center text-blue-500">Translate App</h1>
         <form className="space-y-4" onSubmit={handleSubmit}>
-            <div>
-                <label className="label">
-                    <span className="text-base label-text">Email</span>
-                </label>
-                <input type="email" name="email" placeholder="Email Address" required className="w-full input input-bordered" />
-            </div>
-            <div>
-                <label className="label">
-                    <span className="text-base label-text">Password</span>
-                </label>
-                <input type="password" name="password" placeholder="Enter Password" className="w-full input input-bordered" required />
-            </div>
-            <a href="#" className="text-xs text-gray-600 hover:underline hover:text-blue-600">Forget Password?</a>
-            <div>
-                <button className="btn btn-block">Login</button>
-            </div>
+          <div>
+            <label className="label">
+              <span className="text-base label-text text-zinc-700">Email</span>
+            </label>
+            <input type="text" className="w-full input input-bordered bg-white rounded-md border-blue-500 focus:border-blue-800" />
+          </div>
+          <div>
+            <label className="label">
+              <span className="text-base label-text text-zinc-700">Password</span>
+            </label>
+            <input type="password"
+              className="w-full input input-bordered bg-white rounded-md border-blue-500 focus:border-blue-800" />
+          </div>
+          {/* <a href="#" className="text-xs text-gray-600 hover:underline hover:text-blue-600">Forget Password?</a> */}
+          <div>
+            <button className="mt-2 btn btn-block bg-blue-500 border-blue-500 text-zinc-200 hover:bg-blue-800 hover:border-blue-800">Login</button>
+            <p className="mb-0 mt-2 pt-1 font-normal">
+              Don't have an account?&nbsp;
+              <a
+              href="registration"
+              className="transition duration-150 ease-in-out text-blue-500 hover:text-blue-800 hover:underline"
+              >Register</a
+              >
+            </p>
+          </div>
         </form>
+      </div>
     </div>
-</div>
-
   )
 }
