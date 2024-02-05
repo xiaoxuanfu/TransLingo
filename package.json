@@ -13,6 +13,7 @@
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@langchain/openai": "^0.0.14",
     "daisyui": "^4.6.1",
     "dotenv": "^16.4.1",
     "eventsource-parser": "^1.1.1",
