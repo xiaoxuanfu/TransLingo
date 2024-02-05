@@ -1,0 +1,48 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DaisyUI Login Form Example</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="relative flex flex-col justify-center h-screen overflow-hidden">
+        <div class="w-full p-6 m-auto bg-white rounded-md shadow-md ring-2 ring-gray-800/50 lg:max-w-lg">
+            <h1 class="text-3xl font-semibold text-center text-gray-700">Translate App</h1>
+            <form class="space-y-4">
+                <div>
+                    <label class="label">
+                        <span class="text-base label-text">Email</span>
+                    </label>
+                    <input type="text" placeholder="Email Address" class="w-full input input-bordered" />
+                </div>
+                <div>
+                    <label class="label">
+                        <span class="text-base label-text">Password</span>
+                    </label>
+                    <input type="password" placeholder="Enter Password"
+                        class="w-full input input-bordered" />
+                </div>
+                <a href="#" class="text-xs text-gray-600 hover:underline hover:text-blue-600">Forget Password?</a>
+                <div>
+                    <button class="btn btn-block">Login</button>
+                    <!-- Register link -->
+                    <p class="mb-0 mt-2 pt-1 text-sm font-semibold">
+                        Don't have an account?
+                        <a
+                        href="registration.html"
+                        class="text-accent transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700"
+                        >Register</a
+                        >
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
