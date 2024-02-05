@@ -102,7 +102,7 @@ export default function Home() {
       Assistant
     </button>            
   </div>
-  <div className="space-x-4 flex justify-end">
+  <div className="space-x-4 flex">
           <button className=" text-sm" onClick={() => handleLanguageChange('english')}>English</button>
           <button className=" text-sm" onClick={() => handleLanguageChange('chinese')}>Chinese</button>
           <select className="select text-sm">
@@ -132,6 +132,7 @@ export default function Home() {
     </button>
     
   <TranslationBox userInput={userInputs}/>
+
   </div>
 </main>
   )

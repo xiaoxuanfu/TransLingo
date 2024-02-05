@@ -21,7 +21,7 @@ const InputArea = ({ onUserInputSubmit, output}) => {
   };
 
   return (
-  <form className="w-1/2 flex flex-col h-full relative" onSubmit={handleSubmit}>
+    <form className="w-1/2 flex flex-col h-full relative" onSubmit={handleSubmit}>
   <textarea
     id="chat"
     rows="4"
