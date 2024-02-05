@@ -1,11 +1,11 @@
 // TranslationBox.jsx
+"use client";
 import { useState, useEffect } from 'react';
 
-const TranslationBox = ({ userInput, selectedLanguage }) => {
+  const TranslationBox = ({ userInput, selectedLanguage }) => {
   const [translation, setTranslation] = useState('');
-  
+
   const handleTranslation = async () => {
-    try {
       const response = await fetch('/api/translate', {
         method: 'POST',
         headers: {
@@ -20,9 +20,20 @@ const TranslationBox = ({ userInput, selectedLanguage }) => {
 
       const { content } = await response.json();
       setTranslation(content);
-    } catch (error) {
-      console.error('Translation error:', error.message);
-    }
+      const speechfile = await fetch('/api/textToSpeech', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: content }),
+      });
+      console.log(speechfile);
+;      if (!speechfile.ok) {
+        throw new Error(`Error: ${speechfile.statusText}`);
+      }
+
+      const audioElement = new Audio(speechfile.json());
+      await audioElement.play();
   };
 
   useEffect(() => {
@@ -36,6 +47,7 @@ const TranslationBox = ({ userInput, selectedLanguage }) => {
     <div className="w-1/2 pl-2 h-full bg-white border rounded-lg flex py-2 ">
       {translation && <p>{translation}</p>}
     </div>
+
   );
 };
 

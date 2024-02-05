@@ -15,8 +15,8 @@ app.use(express.urlencoded({ extended: false }));
 
 
 const s3 = new S3({
-  accessKeyId: "AKIAXEM77KUGHVOW7UHS",
-  secretAccessKey: "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",
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
 
 

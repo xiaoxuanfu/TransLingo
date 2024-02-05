@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import RecordingButton from '../../components/RecordingButton';
 
-
-
 export default function RegistrationPage() {
     const [audioState, setAudioState] = useState('');
 
@@ -102,7 +100,7 @@ export default function RegistrationPage() {
             Record the text below to make our model<br/>adopt your voice!
             Do it until your recording is clear! 
           </div>
-          <div className='text-center text-3xl text-zinc-600 font-semibold m-2 underline underline-offset-2'>
+          <div className='text-center text-xl text-zinc-600 font-semibold m-2 underline underline-offset-2'>
             The quick brown fox jumps over the lazy dog.
 
           </div>

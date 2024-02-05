@@ -71,7 +71,7 @@ const Chatbox = () => {
     <div className="h-full flex flex-col justify-between p-4 bg-white rounded-md shadow-md w-1/2">
       <div className="rounded-md overflow-y-auto mb-4 max-h-screen min-w-36" style={{ flex: 1, border: '1px solid #ccc', padding: '10px' }}>
         {conversation.map((message, index) => (
-          <div key={index} className={message.role === "user" ? "text-right" : "text-left"} style={{ marginBottom: '10px', color: message.role === 'user' ? 'blue' : 'green' }}>
+          <div key={index} className={message.role === "user" ? "text-right" : "text-left"} style={{ marginBottom: '10px', color: message.role === 'user' ? '#2D82B5' : '#248277' }}>
             <div className="flex items-right justify-end">
             {message.role === 'user' ? (
               <div className="flex items-center justify-end">
