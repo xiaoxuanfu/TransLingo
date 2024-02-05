@@ -34,12 +34,6 @@ const TranslationBox = ({ userInput }) => {
 
   return (
     <div className="w-1/2 pl-2 h-full bg-white border rounded-lg flex py-2 ">
-      <button
-        type="button"
-        className="p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600"
-        onClick={handleTranslation}
-      >
-      </button>
       {translation && <p>{translation}</p>}
     </div>
   );
