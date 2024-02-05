@@ -6,10 +6,19 @@ const openai = new OpenAI({
     apiKey:process.env.OPENAI_API_KEY
   });
 
-const systemPrompt = "translate the following text into chinese."
 
 export async function POST(req) {
-    const { message } = await req.json();
+    const { message, language } = await req.json();
+    console.log('msg in POST ',message);
+    if (message===''){
+        return NextResponse.json({
+            content: '',
+          });
+    }
+    console.log(language);
+    const systemPrompt = `translate the following text into ${language}.`;
+
+    console.log('within the ai, ', systemPrompt);
 
     const completion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
