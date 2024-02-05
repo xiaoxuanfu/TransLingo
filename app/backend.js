@@ -34,7 +34,7 @@ const uploadAudio = (filename, bucketname, file) => {
             Key: filename,
             Bucket: bucketname,
             Body: file,
-            ContentType: 'audio/mpeg',
+            ContentType: 'audio/webm',
         };
 
         s3.upload(params, (err, data) => {
@@ -61,10 +61,11 @@ app.post('/register', upload.single('audiofile'), (req, res) => {
 
     const hashedPassword = bcrypt.hashSync(password, saltRounds);
     users[email] = { email, password: hashedPassword };
-
+    
     // Generate the filename based on the user's email
     registeredFilename = generateFilename(email);
 
+    console.log(req.file)
     const bucketname = 'techfest-audio';
     const file = req.file.buffer;
 

@@ -1,33 +1,17 @@
-import { SharedIniFileCredentials } from 'aws-sdk';
 import React, { useState, useEffect } from 'react';
 
-const RecordingButton = () => {
+const RecordingButton = ({onClick}) => {
     const [isClicked, setIsClicked] = useState(false);
     const [result, setResult] = useState();
     const [recording, setRecording] = useState(false);
     const [mediaRecorder, setMediaRecorder] = useState(null);
     const [userInputs, setUserInputs] = useState('');
 
-    // Function to start recording
-    const startRecording = () => {
-        if (mediaRecorder) {
-        mediaRecorder.start();
-        setRecording(true);
-        }
-    };
-
-    // Function to stop recording
-    const stopRecording = () => {
-        if (mediaRecorder) {
-        mediaRecorder.stop();
-        setRecording(false);
-        }
-    };
+    
     // this array holds audio data
     let chunks = [];
         // This useEffect hook sets up the media recorder when the component mounts
     useEffect(() => {
-        if (typeof window !== 'undefined') {
         navigator.mediaDevices.getUserMedia({ audio: true })
             .then(stream => {
             const newMediaRecorder = new MediaRecorder(stream);
@@ -47,26 +31,9 @@ const RecordingButton = () => {
                 audio.play();
                 console.log("Playing audio")
                 try {
-                const reader = new FileReader();
-                reader.readAsDataURL(audioBlob);
-                
-                reader.onloadend = async function () {
-                    const base64Audio = reader.result.split(',')[1]; // Remove the data URL prefix
-                    const response = await fetch("/api/speechToText", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ audio: base64Audio }),
-                    });
-                    const data = await response.json();
-                    if (response.status !== 200) {
-                    throw data.error || new Error(`Request failed with status ${response.status}`);
-                    }
-                    setResult(data.result); // obtain the transcribed text
-                    setUserInputs(data.result);
+                    setResult(audioBlob);
                 }
-                } catch (error) {
+                catch (error) {
                 console.error(error);
                 alert(error.message);
                 }
@@ -74,16 +41,7 @@ const RecordingButton = () => {
             setMediaRecorder(newMediaRecorder);
             })
             .catch(err => console.error('Error accessing microphone:', err));
-        }
     }, []);
-
-    const handleClick = () => {
-        // Update the state to indicate that the button is clicked
-        setIsClicked(!isClicked);
-        console.log(isClicked ? "Recording Stopped" : "Recording Started")
-        isClicked ? stopRecording : startRecording;
-        console.log(isClicked)
-    };
 
     return (
         <div className="flex items-center justify-center">
@@ -105,7 +63,7 @@ const RecordingButton = () => {
                 backgroundColor: isClicked ? 'red' : 'transparent',
                 cursor: 'pointer',
             }}
-            onClick={handleClick}
+            onClick={recording ? stopRecording : startRecording}
             ></div>
 
             <svg className='items-center justify-center' fill="#000000" height="25px" width="25px" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlnsXlink="http://www.w3.org/1999/xlink" style={{
@@ -114,7 +72,7 @@ const RecordingButton = () => {
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
                         cursor: 'pointer',
-                    }} onClick={handleClick}>
+                    }} onClick={recording ? stopRecording : startRecording}>
                 <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                 <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
                 <g id="SVGRepo_iconCarrier">
