@@ -34,46 +34,22 @@ useEffect(() => {
           audio.onerror = function (err) {
             console.error('Error playing audio:', err);
           };
-          newMediaRecorder.ondataavailable = e => {
-            chunks.push(e.data);
-          };
-          newMediaRecorder.onstop = async () => {
-            const audioBlob = new Blob(chunks, { 
-              type: 'audio/mpeg' 
-            });
-            const audioUrl = URL.createObjectURL(audioBlob);
-            const audio = new Audio(audioUrl);
-            audio.onerror = function (err) {
-              console.error('Error playing audio:', err);
-            };
-            audio.play();
-            try {
-              const reader = new FileReader();
-              reader.readAsDataURL(audioBlob);
-              reader.onloadend = async function () {
-                const base64Audio = reader.result.split(',')[1]; // Remove the data URL prefix
-                console.log(audioBlob)
-
-                const audiofile = new File([audioBlob], "/tmp/output.mp3", {
-                  type: "audio/mp3",
-                });
-                const formData = new FormData();
-
-                // Append the recording to the FormData
-                formData.append('audio', audioBlob);
-                
-                const response = await fetch("/api/speechToText", {
-                  method: "POST",
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: formData,
-                });
-                const data = await response.json();
-                if (response.status !== 200) {
-                  throw data.error || new Error(`Request failed with status ${response.status}`);
-                }
-                setResult(data.result);
+          audio.play();
+          try {
+            const reader = new FileReader();
+            reader.readAsDataURL(audioBlob);
+            reader.onloadend = async function () {
+              const base64Audio = reader.result.split(',')[1]; // Remove the data URL prefix
+              const response = await fetch("/api/speechToText", {
+                method: "POST",
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ audio: base64Audio }),
+              });
+              const data = await response.json();
+              if (response.status !== 200) {
+                throw data.error || new Error(`Request failed with status ${response.status}`);
               }
               setResult(data.result);
             }
