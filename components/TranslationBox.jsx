@@ -1,9 +1,9 @@
 // TranslationBox.jsx
 import { useState, useEffect } from 'react';
 
-const TranslationBox = ({ userInput }) => {
+const TranslationBox = ({ userInput, selectedLanguage }) => {
   const [translation, setTranslation] = useState('');
-
+  
   const handleTranslation = async () => {
     try {
       const response = await fetch('/api/translate', {
@@ -11,7 +11,7 @@ const TranslationBox = ({ userInput }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: userInput }),
+        body: JSON.stringify({ message: userInput, language: selectedLanguage }),
       });
 
       if (!response.ok) {
@@ -27,10 +27,10 @@ const TranslationBox = ({ userInput }) => {
 
   useEffect(() => {
     // Trigger translation when userInput changes
-    if (userInput) {
+    if (userInput && selectedLanguage) {
       handleTranslation();
     }
-  }, [userInput]);
+  }, [userInput, selectedLanguage]);
 
   return (
     <div className="w-1/2 pl-2 h-full bg-white border rounded-lg flex py-2 ">
