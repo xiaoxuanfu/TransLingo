@@ -21,7 +21,7 @@ To fully make use of this application, make sure you enable it access your micro
 ## Features
 
 **Speech to Text Transcription**
-
+<br>
 Effortlessly convert spoken words into written text, providing a seamless and accurate way to transcribe audio content.
 
 **Translation**
