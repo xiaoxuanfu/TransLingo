@@ -20,8 +20,11 @@ To fully make use of this application, make sure you enable it access your micro
 
 ## Features
 
- **Speech to Text Transcription
- Translation
- Text to Speech Synthesis
- Personal Chatbot Virtual Assistant**
+ **Speech to Text Transcription**
+
+**Translation**
+
+ **Text to Speech Synthesis**
+ 
+ **Personal Chatbot Virtual Assistant**
 
