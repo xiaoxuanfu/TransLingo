@@ -38,10 +38,10 @@ export default function LoginPage() {
       // console.log(textData.message)
       // console.log(textData.audioData)
       
-      // To feed audioData into TTS
-      const audio = Buffer.from(audioData, 'base64');
-      // Write the MP3 audio data to output file ./output.mp3
-      const mp3AudioData = await convertAudioToMp3(audio);
+      // // To feed audioData into TTS
+      // const audio = Buffer.from(audioData, 'base64');
+      // // Write the MP3 audio data to output file ./output.mp3
+      // const mp3AudioData = await convertAudioToMp3(audio);
       
 
 
