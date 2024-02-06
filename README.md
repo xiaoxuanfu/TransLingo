@@ -25,13 +25,13 @@ To fully make use of this application, make sure you enable it access your micro
 Effortlessly convert spoken words into written text, providing a seamless and accurate way to transcribe audio content.
 
 **Translation**
-
+<br>
 Bridge language barriers with ease by translating text between multiple languages, enhancing global communication and understanding.
 
  **Text to Speech Synthesis**
- 
+<br>
 Transform written content into spoken words using advanced text-to-speech synthesis, offering an accessible and natural way to experience written information.
  
  **Personal Chatbot Virtual Assistant**
- 
+ <br>
 Interact with a personalized virtual assistant, leveraging chatbot technology to answer queries, assist with tasks, and enhance user engagement.
