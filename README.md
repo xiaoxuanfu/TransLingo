@@ -18,4 +18,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 To fully make use of this application, make sure you enable it access your microphone!
 
+## Features
+
+# Speech to Text Transcription
+# Translation
+# Text to Speech Synthesis
+# Personal Chatbot Virtual Assistant
 
