@@ -21,13 +21,17 @@ To fully make use of this application, make sure you enable it access your micro
 ## Features
 
 **Speech to Text Transcription**
+
 Effortlessly convert spoken words into written text, providing a seamless and accurate way to transcribe audio content.
 
 **Translation**
+
 Bridge language barriers with ease by translating text between multiple languages, enhancing global communication and understanding.
 
  **Text to Speech Synthesis**
+ 
 Transform written content into spoken words using advanced text-to-speech synthesis, offering an accessible and natural way to experience written information.
  
  **Personal Chatbot Virtual Assistant**
+ 
 Interact with a personalized virtual assistant, leveraging chatbot technology to answer queries, assist with tasks, and enhance user engagement.
